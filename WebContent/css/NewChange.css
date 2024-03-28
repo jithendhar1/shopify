@@ -1,0 +1,17 @@
+@charset "ISO-8859-1";
+body {
+	background-color: #E6F9E6;
+}
+.divone
+{
+	margin-top: 45px;
+	 background-color: #33cc33;
+	  color: white; 
+	  padding: 5px;
+}
+.pone{
+	color: blue; 
+	font-weight: bold;
+	 margin-top: 5px;
+	 margin-bottom: 5px;
+}
