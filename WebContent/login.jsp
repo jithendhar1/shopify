@@ -42,7 +42,7 @@
 				<div class="row">
 					<div class="col-md-12 form-group">
 						<label for="last_name">Email:</label> <input type="email"
-							placeholder="Enter Username" name="username" class="form-control"
+							placeholder="Enter Email" name="username" class="form-control"
 							id="last_name" required>
 					</div>
 				</div>
@@ -66,6 +66,9 @@
 					<div class="col-md-12 text-center">
 						<button type="submit" class="btn btn-success">Login</button>
 					</div>
+				</div>
+				<div class="col-auto pt-2">
+				  <a class="text-muted float-right" style="margin-left: 220px;" href="forgot-password.jsp">Forgot Password?</a>
 				</div>
 			</form>
 
