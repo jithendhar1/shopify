@@ -56,8 +56,7 @@ public class UserServiceImpl implements UserService {
 
 			if (k > 0) {
 				status = "User Registered Successfully!";
-				MailMessage.registrationSuccess(user.getEmail(), user.getName().split(" ")[0]);
-			}
+				}
 
 		} catch (SQLException e) {
 			status = "Error: " + e.getMessage();

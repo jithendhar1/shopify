@@ -1,6 +1,7 @@
 package com.shashi.paymentphonepay;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -9,7 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.shashi.service.impl.ProfileDAO;
+import com.shashi.srv.BookingMail_user;
 import com.shashi.utility.DBUtil;
+
 @WebServlet("/Phonepe_redirect")
 public class Phonepe_redirect extends HttpServlet {
 
@@ -24,7 +29,7 @@ public class Phonepe_redirect extends HttpServlet {
         int amount2=0;
         amount2 = Integer.parseInt(amount1) / 100;
         String amount = String.valueOf(amount2);
-        String userId = request.getParameter("userId");
+        String userName = request.getParameter("userName");
         String orderId = request.getParameter("orderId");
 
         try {
@@ -32,11 +37,11 @@ public class Phonepe_redirect extends HttpServlet {
             Connection con = DBUtil.provideConnection();
             
             // Prepare SQL statement to insert payment data
-            String insertQuery = "INSERT INTO payments (userid, orderid, amount) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO payments (userName, orderid, amount) VALUES (?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(insertQuery);
             
             // Set values for the parameters
-            ps.setString(1, userId);
+            ps.setString(1, userName);
             ps.setString(2, orderId);
             ps.setString(3, amount);
             
@@ -46,10 +51,11 @@ public class Phonepe_redirect extends HttpServlet {
             // Close the PreparedStatement and database connection
             ps.close();
             con.close();
-            
+            String email = ProfileDAO.getUserIDByUsername(userName);
             // Print success message
             System.out.println("Payment data saved successfully.");
-            
+            BookingMail_user.sendLinkEmail(userName,email, orderId, amount);
+           	request.getSession().setAttribute("email", email);
             //response.sendRedirect("OrderServlet");
             response.sendRedirect("OrderServlet?amount=" + amount);
             
